@@ -8,10 +8,10 @@ newDateForm.addEventListener('submit', event =>{
 });
 
 class Day{
-    constructor(date){
-        this.date = date;
+    /*constructor(date){
+        date;
         this.sells = [];
-        this.item = {
+        item = {
             name: '',
             quantity: 0,
             price: 0,
@@ -19,9 +19,11 @@ class Day{
             earnings: 0
         }
     }
-    showInfo(){
-        console.log(this.item);
-    }
+
+    addItem(item){
+        this.sells.push(item);
+    }*/
+
 }
 
 

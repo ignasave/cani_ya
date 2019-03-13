@@ -7,25 +7,70 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <title>Cani-ya</title>
   </head>
   <body>
-      <div class="container">
+      <div class="container contenedor">
           <div class="row">
-              <div class="col-12">
+              <div class="col-12 mt-3">
                 <form id="newDateForm">
-                    <div class="form-group">
-                        <label for="newDate">FECHA A INGRESAR: </label>
-                        <input type="date" class="form-control" id="newDate">
+                    <div class="form-group row">
+                        <label for="newDate" class="col-3 pt-1">NUEVA FECHA: </label>
+                        <input type="date" class="form-control col-6 pill" id="newDate">
+                        <button type="submit" class=" ml-1 btn btn-primary rounded-circle"><i class="fas fa-check"></i></button>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+                  </form>
+              </div>
+
+              <div class="col-12">
+                <div class="row">
+                  <h3 class="pl-3 pb-0 pt-2 col" id="">13/03/2018</h3>
+                  <div class="flotar-derecha col-2">
+                    <button class="btn-info btn rounded-circle"><i class="fas fa-pen"></i></button>
+                    <button class="btn-danger btn rounded-circle"><i class="fas fa-times"></i></button>
+                  </div>
+                </div>
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Cantidad</th>
+                      <th scope="col">Precio</th>
+                      <th scope="col">Total</th>
+                      <th scope="col">Ganancia</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">REVISTA Ñ</th>
+                      <td>1</td>
+                      <td>$ 64.90</td>
+                      <td>$ 64.90</td>
+                      <td>$ 16.23</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">BATIMOVIL NRO 2</th>
+                      <td>3</td>
+                      <td>$ 357.00</td>
+                      <td>$ 1,071.00</td>
+                      <td>$ 267.65</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">CARAS Y CARETAS</th>
+                      <td>2</td>
+                      <td>$ 68.00</td>
+                      <td>$ 136</td>
+                      <td>$ 17.00</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
           </div>
-      </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    
     <script src="js/index.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
