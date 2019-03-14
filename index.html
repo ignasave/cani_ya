@@ -25,30 +25,52 @@
     <title>Cani-ya</title>
   </head>
   <body>
-    <div class="container contenedor mb-1 pb-3 bg-dark text-white">
-      <div class="row">
+    <div class="container-flex contenedor mb-1 pb-3 bg-dark text-white">
+      <div class="row pl-2">
         <div class="col-12">
           <h2>Menu configuracion</h2>
         </div>
-        <div class="col-12">
+        <div class="col-2">
           <button class="btn btn-light rounded-circle">
             <i class="fas fa-moon"></i>
           </button>
         </div>
+        <div class="col-4">
+          <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-secondary active">
+              <input
+                type="radio"
+                name="view"
+                id="revistas"
+                autocomplete="off"
+                checked
+              />
+              REVISTAS
+            </label>
+            <label class="btn btn-secondary">
+              <input type="radio" name="view" id="diarios" autocomplete="off" />
+              DIARIOS
+            </label>
+            <label class="btn btn-secondary">
+              <input type="radio" name="view" id="global" autocomplete="off" />
+              GLOBAL
+            </label>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="container contenedor mt-1 mb-1 bg-dark text-white">
+    <div class="container-flex contenedor mt-1 mb-1 bg-dark text-white">
       <div class="row">
         <!-- INPUT DE NUEVO DIA-->
         <div class="col-12 mt-3">
           <form id="newDateForm">
             <div class="form-group row justify-content-center">
               <label for="newDate" class="col-2 pt-1">NUEVO DIA: </label>
-              <input type="date" class="form-control col-6 pill" id="newDate" />
+              <input type="date" class="form-control col-6 pill mr-1" id="newDate" />
               <button
                 type="submit"
-                class=" ml-1 btn btn-primary rounded-circle"
+                class="btn btn-primary rounded-circle"
               >
                 <i class="fas fa-check"></i>
               </button>
@@ -58,10 +80,10 @@
         <!-- EJEMPLO DE EDITAR -->
         <div class="col-12">
           <div class="row">
-            <h3 class="pl-3 pb-0 pt-2 col" id="">14/03/2018</h3>
+            <h3 class="pl-3 pb-0 pt-2 col" id="">DOMINGO 14/03/2018</h3>
             <div class="flotar-derecha col-2">
               <button class="btn-success btn rounded-circle">
-                <i class="fas fa-pen"></i>
+                <i class="fas fa-check"></i>
               </button>
               <button class="btn-danger btn rounded-circle">
                 <i class="fas fa-times"></i>
@@ -121,7 +143,7 @@
         <!-- EJEMPLO DE VISTA TERMINADA-->
         <div class="col-12">
           <div class="row">
-            <h3 class="pl-3 pb-0 pt-2 col" id="">13/03/2018</h3>
+            <h3 class="pl-3 pb-0 pt-2 col" id="">SABADO 13/03/2018</h3>
             <div class="flotar-derecha col-2">
               <button class="btn-info btn rounded-circle">
                 <i class="fas fa-pen"></i>
@@ -169,7 +191,7 @@
       </div>
     </div>
     <!-- BOTON DE CARGAR MAS DATOS-->
-    <div class="container mt-1">
+    <div class="container-flex mt-1">
       <div class="row justify-content-center">
         <div class="col-2">
           <button class="btn btn-dark btn-lg pill pb-2">Cargar Mas</button>
