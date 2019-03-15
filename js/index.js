@@ -22,8 +22,50 @@ class Day {
 
 //INTERFAZ
 const listArea = document.getElementById("jeu");
+//FORMATEAR LA FECHA DEL TITULO
+function formatearFecha(fecha) {
+  date = new Date(fecha);
+  console.log(date);
+  let day = date.getDate() + 1;
+  let month = date.getMonth() + 1;
+  let year = date.getFullYear();
+  let gDay = date.getDay();
+  let cDay = "Dia Desconocido";
+  switch (gDay) {
+    case 0:
+      cDay = "LUNES";
+      break;
+    case 1:
+      cDay = "MARTES";
+      break;
+    case 2:
+      cDay = "MIERCOLES";
+      break;
+    case 3:
+      cDay = "JUEVES";
+      break;
+    case 4:
+      cDay = "VIERNES";
+      break;
+    case 5:
+      cDay = "SABADO";
+      break;
+    case 0:
+      cDay = "DOMINGO";
+      break;
+  }
+  if (month < 10) {
+    if (day < 10) {
+      return `${cDay} 0${day}/0${month}/${year}`;
+    } else {
+      return `${cDay} ${day}/0${month}/${year}`;
+    }
+  } else {
+    return `${cDay} ${day}/${month}/${year}`;
+  }
+}
+//CLASE INTERFAZ
 class Interfaz {
-    
   mostrarDias(datos) {
     //ORDENAR LOS DATOS DE MAYOR FECHA A MENOR FECHA;
     datos.sort(function(a, b) {
@@ -35,10 +77,11 @@ class Interfaz {
     listArea.innerHTML = "";
     //POR CADA DIA HAGO UNA TABLA
     datos.forEach(dato => {
+      let fechaFormateada = formatearFecha(dato.date);
       let diaHtml = `
-            <div class="col-12">
+            <div class="col-12" id="${dato.date}">
               <div class="row">
-                <h3 class="pl-3 pb-0 pt-2 col" id="">${dato.date}</h3>
+                <h3 class="pl-3 pb-0 pt-2 col">${fechaFormateada}</h3>
                 <div class="flotar-derecha col-2">
                   <button class="btn-info btn rounded-circle" onClick="editar(${
                     dato.date
