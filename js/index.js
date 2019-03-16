@@ -1,5 +1,6 @@
 const newDateForm = document.getElementById('newDateForm');
 const newDate = document.getElementById('newDate');
+const botonNoche = document.getElementById('modonoche');
 //CONTROLADOR/////////////////////////////////////////
 const days = [];
 //CLASE DIA
@@ -23,50 +24,49 @@ class Day {
 //INTERFAZ////////////////////////////////////////////
 const listArea = document.getElementById('tableSection');
 
-//FORMATEAR LA FECHA DEL TITULO
-function formatDate(paramDate) {
-	let date = new Date(paramDate);
-	let day = date.getDate() + 1;
-	let month = date.getMonth() + 1;
-	let year = date.getFullYear();
-	let gDay = date.getDay();
-	let cDay = 'Dia Desconocido';
-	switch (gDay) {
-		case 0:
-			cDay = 'LUNES';
-			break;
-		case 1:
-			cDay = 'MARTES';
-			break;
-		case 2:
-			cDay = 'MIERCOLES';
-			break;
-		case 3:
-			cDay = 'JUEVES';
-			break;
-		case 4:
-			cDay = 'VIERNES';
-			break;
-		case 5:
-			cDay = 'SABADO';
-			break;
-		case 6:
-			cDay = 'DOMINGO';
-			break;
-	}
-	if (month < 10) {
-		if (day < 10) {
-			return `${cDay} 0${day}/0${month}/${year}`;
-		} else {
-			return `${cDay} ${day}/0${month}/${year}`;
-		}
-	} else {
-		return `${cDay} ${day}/${month}/${year}`;
-	}
-}
-
 //CLASE INTERFAZ
 class Interface {
+	//FORMATEAR LA FECHA DEL TITULO
+	formatDate(paramDate) {
+		let date = new Date(paramDate);
+		let day = date.getDate() + 1;
+		let month = date.getMonth() + 1;
+		let year = date.getFullYear();
+		let gDay = date.getDay();
+		let cDay = 'Dia Desconocido';
+		switch (gDay) {
+			case 0:
+				cDay = 'LUNES';
+				break;
+			case 1:
+				cDay = 'MARTES';
+				break;
+			case 2:
+				cDay = 'MIERCOLES';
+				break;
+			case 3:
+				cDay = 'JUEVES';
+				break;
+			case 4:
+				cDay = 'VIERNES';
+				break;
+			case 5:
+				cDay = 'SABADO';
+				break;
+			case 6:
+				cDay = 'DOMINGO';
+				break;
+		}
+		if (month < 10) {
+			if (day < 10) {
+				return `${cDay} 0${day}/0${month}/${year}`;
+			} else {
+				return `${cDay} ${day}/0${month}/${year}`;
+			}
+		} else {
+			return `${cDay} ${day}/${month}/${year}`;
+		}
+	}
 	//FUNCION PARA MOSTRAR LOS DIAS EN EL CONTENEDOR DE DIAS, REVISTAS
 	showDays(datos) {
 		//ORDENAR LOS DATOS DE MAYOR FECHA A MENOR FECHA;
@@ -79,7 +79,7 @@ class Interface {
 		listArea.innerHTML = '';
 		//POR CADA DIA HAGO UNA TABLA
 		datos.forEach(dato => {
-			let formatedDate = formatDate(dato.date);
+			let formatedDate = this.formatDate(dato.date);
 			let dayHTML = `
             <div class="col-12" id="${dato.date}">
               <div class="row">
@@ -88,7 +88,7 @@ class Interface {
                   <button class="btn-info btn rounded-circle" onclick="UI.edit('${dato.date}')">
                     <i class="fas fa-pen"></i>
                   </button>
-                  <button class="btn-success btn rounded-circle hidden" onclick="UI.confirm('${
+                  <button class="btn-success btn rounded-circle confirm hidden" onclick="UI.confirm('${
 						dato.date
 					}')">
                     <i class="fas fa-check"></i>
@@ -98,14 +98,14 @@ class Interface {
                   </button>
                 </div>
               </div>
-              <table class="table table-striped table-dark">
+              <table class="table table-striped` + (CFG.modonoche ? ' table-dark' : '' ) + ` ">
                 <thead>
                   <tr>
                     <th scope="col">Nombre</th>
                     <th scope="col">Cantidad</th>
                     <th scope="col">Precio</th>
                     <th scope="col">Total</th>
-                    <th scope="col">Ganancia</th>
+                    <th scope="col">Facturacion</th>
                   </tr>
                 </thead>
                 <tbody>`;
@@ -136,6 +136,12 @@ class Interface {
 
 	//FUNCION BOTON EDITAR DIA
 	edit(date) {
+		const confirms = document.querySelectorAll('.confirm');
+		confirms.forEach(confirm => {
+			if (confirm.getAttribute('class') != 'btn-success btn rounded-circle confirm hidden') {
+				confirm.click();
+			}
+		});
 		this.containerCN(1, 3, 1, date).classList.add('hidden');
 		this.containerCN(1, 3, 3, date).classList.remove('hidden');
 
@@ -187,21 +193,27 @@ class Interface {
 }
 
 ///////////////////////////////////////////////////
+class Configuracion{
+ constructor(){
+	 this.modonoche = true;
+ }
+}
+
 function enviarNuevoItem(id) {
-	const botonEdit = document.getElementById(id).getElementsByClassName('btn-info btn rounded-circle')[0];
+	const botonEdit = document
+		.getElementById(id)
+		.getElementsByClassName('btn-info btn rounded-circle')[0];
 	const nombre = document.getElementById('nombre').value;
 	const cantidad = Number(document.getElementById('cantidad').value);
 	const precio = Number(document.getElementById('precio').value);
-	console.log(days);
 	const nuevoItem = {
-		name : nombre,
-		quantity : cantidad,
-		price : precio,
-		total : cantidad * precio,
-		earnings : (cantidad * precio * 25) / 100
-	}
+		name: nombre,
+		quantity: cantidad,
+		price: precio,
+		total: cantidad * precio,
+		earnings: (cantidad * precio * 25) / 100
+	};
 	days[indiceFecha(id)].addItem(nuevoItem);
-	console.log(days);
 	UI.showDays(days);
 	botonEdit.click();
 }
@@ -214,10 +226,58 @@ function indiceFecha(id) {
 }
 
 const UI = new Interface();
+const CFG = new Configuracion();
 
 newDateForm.addEventListener('submit', event => {
 	event.preventDefault();
 	const newDay = new Day(newDate.value);
 	days.push(newDay);
 	UI.showDays(days);
+	UI.containerCN(1, 3, 1, newDate.value).click();
 });
+
+botonNoche.addEventListener('click', cambiarModoNoche);
+
+function cambiarModoNoche(){
+	CFG.modonoche = !CFG.modonoche;
+	const container1 = document.getElementById('container1');
+	const container2 = document.getElementById('container2');
+	const botonCargarMas = document.getElementById('botonCargarMas');
+	const tables = document.getElementsByClassName('table');
+	if(!CFG.modonoche){
+		container1.classList.remove('bg-dark');
+		container1.classList.remove('text-white');
+
+		container2.classList.remove('bg-dark');
+		container2.classList.remove('text-white');
+
+		botonCargarMas.classList.remove('btn-dark');
+
+		botonNoche.classList.remove('btn-light');
+		botonNoche.classList.add('btn-dark');
+
+		for (let table of tables){
+			table.classList.remove('table-dark');
+		}
+	}
+	else{
+		container1.classList.add('bg-dark');
+		container1.classList.add('text-white');
+
+		container2.classList.add('bg-dark');
+		container2.classList.add('text-white');
+
+		botonCargarMas.classList.add('btn-dark');
+
+		botonNoche.classList.add('btn-light');
+		botonNoche.classList.remove('btn-dark');
+
+		for (let table of tables){
+			table.classList.add('table-dark');
+		}
+	}
+}
+
+
+
+

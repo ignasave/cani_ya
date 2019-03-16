@@ -22,3 +22,7 @@ body{
 .hidden{
     display: none;
 }
+
+input{
+    font-weight: bold;
+}
