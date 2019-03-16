@@ -18,3 +18,7 @@ body{
 .flotar-derecha{
     float: right;
 }
+
+.hidden{
+    display: none;
+}
