@@ -49,7 +49,7 @@ function formatDate(paramDate) {
     case 5:
       cDay = "SABADO";
       break;
-    case 0:
+    case 6:
       cDay = "DOMINGO";
       break;
   }
@@ -65,6 +65,7 @@ function formatDate(paramDate) {
 }
 //CLASE INTERFAZ
 class Interface {
+  //FUNCION PARA MOSTRAR LOS DIAS EN EL CONTENEDOR DE DIAS, REVISTAS
   showDays(datos) {
     //ORDENAR LOS DATOS DE MAYOR FECHA A MENOR FECHA;
     datos.sort((a, b) => {
@@ -127,25 +128,28 @@ class Interface {
       listArea.innerHTML += dayHTML;
     });
   }
+  //FUNCION PARA HACER EL TRAVERSING MAS FACIL
+  containerCN(firstCN, secondCN, thirdCN, date) {
+    return document.getElementById(date).childNodes[firstCN].childNodes[
+      secondCN
+    ].childNodes[thirdCN];
+  }
   //FUNCION BOTON EDITAR DIA
   edit(date) {
-    let container = document.getElementById(date);
-    container.childNodes[1].childNodes[3].childNodes[1].classList.add("hidden");
-    container.childNodes[1].childNodes[3].childNodes[3].classList.remove(
-      "hidden"
-    );
+    this.containerCN(1, 3, 1, date).classList.add("hidden");
+    this.containerCN(1, 3, 3, date).classList.remove("hidden");
 
     let th1 = document.createElement("th");
     th1.setAttribute("scope", "col");
     let th2 = document.createElement("th");
     th2.setAttribute("scope", "col");
 
-    container.childNodes[3].childNodes[1].childNodes[1].appendChild(th1);
-    container.childNodes[3].childNodes[1].childNodes[1].appendChild(th2);
-    const tbody = container.childNodes[3].childNodes[3];
+    this.containerCN(3, 1, 1, date).appendChild(th1);
+    this.containerCN(3, 1, 1, date).appendChild(th2);
+    const tbody = document.getElementById(date).childNodes[3].childNodes[3];
     this.addDomNewItem(tbody);
   }
-
+  //FUNCION PARA AÑADIR EL DOM DEL NUEVO ITEM DE DIA
   addDomNewItem(place) {
     const nuevoItem = document.createElement("tr");
     nuevoItem.id = "trNuevoItem";
@@ -186,14 +190,11 @@ class Interface {
   }
   // FUNCION BOTON CONFIRMAR EDICION DEL DIA
   confirm(date) {
-    let container = document.getElementById(date);
-    container.childNodes[1].childNodes[3].childNodes[3].classList.add("hidden");
-    container.childNodes[1].childNodes[3].childNodes[1].classList.remove(
-      "hidden"
-    );
+    this.containerCN(1, 3, 3, date).classList.add("hidden");
+    this.containerCN(1, 3, 1, date).classList.remove("hidden");
     document.getElementById("trNuevoItem").remove();
-    container.childNodes[3].childNodes[1].childNodes[1].lastChild.remove();
-    container.childNodes[3].childNodes[1].childNodes[1].lastChild.remove();
+    this.containerCN(3, 1, 1, date).lastChild.remove();
+    this.containerCN(3, 1, 1, date).lastChild.remove();
   }
 }
 ///////////////////////////////////////////////////
