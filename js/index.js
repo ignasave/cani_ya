@@ -1,7 +1,7 @@
 const newDateForm = document.getElementById("newDateForm");
 const newDate = document.getElementById("newDate");
 //CONTROLADOR/////////////////////////////////////////
-const dias = [];
+const days = [];
 class Day {
   constructor(date) {
     this.date = date;
@@ -21,10 +21,10 @@ class Day {
 }
 
 //INTERFAZ////////////////////////////////////////////
-const listArea = document.getElementById("jeu");
+const listArea = document.getElementById("tableSection");
 //FORMATEAR LA FECHA DEL TITULO
-function formatearFecha(fecha) {
-  date = new Date(fecha);
+function formatDate(paramDate) {
+  let date = new Date(paramDate);
   let day = date.getDate() + 1;
   let month = date.getMonth() + 1;
   let year = date.getFullYear();
@@ -64,8 +64,8 @@ function formatearFecha(fecha) {
   }
 }
 //CLASE INTERFAZ
-class Interfaz {
-  mostrarDias(datos) {
+class Interface {
+  showDays(datos) {
     //ORDENAR LOS DATOS DE MAYOR FECHA A MENOR FECHA;
     datos.sort((a, b) => {
       var dateA = new Date(a.date),
@@ -76,18 +76,18 @@ class Interfaz {
     listArea.innerHTML = "";
     //POR CADA DIA HAGO UNA TABLA
     datos.forEach(dato => {
-      let fechaFormateada = formatearFecha(dato.date);
-      let diaHtml = `
+      let formatedDate = formatDate(dato.date);
+      let dayHTML = `
             <div class="col-12" id="${dato.date}">
               <div class="row">
-                <h3 class="pl-3 pb-0 pt-2 col">${fechaFormateada}</h3>
+                <h3 class="pl-3 pb-0 pt-2 col">${formatedDate}</h3>
                 <div class="flotar-derecha col-2">
-                  <button class="btn-info btn rounded-circle" onclick="UI.editar('${
+                  <button class="btn-info btn rounded-circle" onclick="UI.edit('${
                     dato.date
                   }')">
                     <i class="fas fa-pen"></i>
                   </button>
-                  <button class="btn-success btn rounded-circle hidden" onclick="UI.confirmar('${
+                  <button class="btn-success btn rounded-circle hidden" onclick="UI.confirm('${
                     dato.date
                   }')">
                     <i class="fas fa-check"></i>
@@ -111,25 +111,25 @@ class Interfaz {
                 </thead>
                 <tbody>`;
       dato.sells.forEach(sell => {
-        let ventaHtml = `<tr>
+        let sellHTML = `<tr>
                     <th scope="row">${sell.name}</th>
                     <td>${sell.quantity}</td>
                     <td>$ ${sell.price}</td>
                     <td>$ ${sell.total}</td>
                     <td>$ ${sell.earnings}</td>
                   </tr>`;
-        diaHtml += ventaHtml;
+        dayHTML += sellHTML;
       });
 
-      diaHtml += `</tbody>
+      dayHTML += `</tbody>
               </table>
             </div>`;
-      listArea.innerHTML += diaHtml;
+      listArea.innerHTML += dayHTML;
     });
   }
   //FUNCION BOTON EDITAR DIA
-  editar(fecha) {
-    let container = document.getElementById(fecha);
+  edit(date) {
+    let container = document.getElementById(date);
     container.childNodes[1].childNodes[3].childNodes[1].classList.add("hidden");
     container.childNodes[1].childNodes[3].childNodes[3].classList.remove(
       "hidden"
@@ -143,10 +143,10 @@ class Interfaz {
     container.childNodes[3].childNodes[1].childNodes[1].appendChild(th1);
     container.childNodes[3].childNodes[1].childNodes[1].appendChild(th2);
     const tbody = container.childNodes[3].childNodes[3];
-    this.añadirDomNuevoItem(tbody);
+    this.addDomNewItem(tbody);
   }
 
-  añadirDomNuevoItem(place) {
+  addDomNewItem(place) {
     const nuevoItem = document.createElement("tr");
     nuevoItem.id = "trNuevoItem";
     nuevoItem.innerHTML = `
@@ -185,8 +185,8 @@ class Interfaz {
     place.prepend(nuevoItem);
   }
   // FUNCION BOTON CONFIRMAR EDICION DEL DIA
-  confirmar(fecha) {
-    let container = document.getElementById(fecha);
+  confirm(date) {
+    let container = document.getElementById(date);
     container.childNodes[1].childNodes[3].childNodes[3].classList.add("hidden");
     container.childNodes[1].childNodes[3].childNodes[1].classList.remove(
       "hidden"
@@ -197,10 +197,10 @@ class Interfaz {
   }
 }
 ///////////////////////////////////////////////////
-const UI = new Interfaz();
+const UI = new Interface();
 newDateForm.addEventListener("submit", event => {
   event.preventDefault();
-  const diaNuevo = new Day(newDate.value);
-  dias.push(diaNuevo);
-  UI.mostrarDias(dias);
+  const newDay = new Day(newDate.value);
+  days.push(newDay);
+  UI.showDays(days);
 });
