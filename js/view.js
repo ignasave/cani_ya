@@ -1,7 +1,7 @@
 const CFG = new Configuracion();
 const listArea = document.getElementById("tableSection");
 
-function cambiarModoNoche() {
+function changeNightMode() {
     CFG.modonoche = !CFG.modonoche;
     const container1 = document.getElementById("container1");
     const container2 = document.getElementById("container2");
@@ -141,7 +141,7 @@ function showDays(datos) {
                         </button>
                       </td>
                       <td class="hidden">
-                        <button class="btn-danger btn rounded-circle" onclick="eliminarSell('${
+                        <button class="btn-danger btn rounded-circle" onclick="eliminarSellView('${
                             sell.name
                         }', '${dato.date}')">
                         <i class="fas fa-times"></i>
@@ -308,16 +308,39 @@ async function editSell(nombre, dia){
 }
 
 function confirmEditView(dia,id){
+  
     const nombre = document.getElementById('nombreEdit').value;
     const cantidad = Number(document.getElementById('cantidadEdit').value);
     const precio = Number(document.getElementById('precioEdit').value);
-    confirmEdit(dia,id,nombre,cantidad,precio);
+    if(verificarNoComienzaEnNum(nombre)){
+      confirmEdit(dia,id,nombre,cantidad,precio);
+    }
+    else{
+      cancelarEdit(dia);
+    }
 }
 
 function cancelarEdit(id){
   showDays(days);
   edit(id);
 } 
+
+function eliminarSellView(item, id){
+  eliminarSell(item,id);
+  showDays(days);
+  edit(id);
+}
+
+function verificarNoComienzaEnNum(value){
+  if (!isNaN(value.charAt(0))){
+    return false
+  }
+  else{
+    return true
+  }
+}
+
+
 
 
 

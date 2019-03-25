@@ -26,18 +26,23 @@ function enviarNuevoItem(id) {
     const cantidad = Number(document.getElementById("cantidad").value);
     const precio = Number(document.getElementById("precio").value);
     const diaRepetido = days[indiceFecha(id)].sells.filter(sell => sell.name == nombre);
-    if(diaRepetido.length == 0){
-        const nuevoItem = {
-            name: nombre,
-            quantity: cantidad,
-            price: precio,
-            total: cantidad * precio,
-            earnings: (cantidad * precio * 25) / 100
-        };
-        days[indiceFecha(id)].addItem(nuevoItem);
-        showDays(days);
-        botonEdit.click();
-    } else {
+    if(verificarNoComienzaEnNum(nombre)){
+        if(diaRepetido.length == 0){
+            const nuevoItem = {
+                name: nombre,
+                quantity: cantidad,
+                price: precio,
+                total: cantidad * precio,
+                earnings: (cantidad * precio * 25) / 100
+            };
+            days[indiceFecha(id)].addItem(nuevoItem);
+            showDays(days);
+            botonEdit.click();
+        } else {
+            limpiarNuevoItem();
+        }
+    }
+    else{
         limpiarNuevoItem();
     }
 }
@@ -77,4 +82,11 @@ function confirmEdit(dia,id,nombre,cantidad,precio){
     sell[0].earnings = (cantidad * precio * 25) / 100;
     showDays(days);
     edit(dia);
+}
+
+function eliminarSell(id, dia){
+    const index = days[indiceFecha(dia)].sells.findIndex(sell => {
+        return sell.name == id;
+    })
+    days[indiceFecha(dia)].sells.splice(index,1);
 }
