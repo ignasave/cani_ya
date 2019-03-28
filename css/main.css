@@ -26,3 +26,16 @@ body{
 input{
     font-weight: bold;
 }
+
+.resultado{
+    color: #EFC84A;
+    font-weight: bold;
+}
+
+.sidebar{
+    height: 100%;
+}
+
+.centered{
+    text-align: center; 
+}

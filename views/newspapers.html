@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../css/main.css" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+      crossorigin="anonymous"
+    />
+    <title>Cani-ya</title>
+  </head>
+  <body>
+    <div
+    class="container-flex contenedor mt-0 mb-1 pb-3 bg-dark text-white"
+    id="container1"
+  >
+    <div class="row pl-2">
+      <div class="col-12">
+        <h2>Menu configuracion</h2>
+      </div>
+      <div class="col-2">
+        <button class="btn btn-light rounded-circle" id="modonoche">
+          <i class="fas fa-moon"></i>
+        </button>
+      </div>
+      <div class="col-4">
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+          <label class="btn btn-secondary active">
+            <input
+              type="radio"
+              name="view"
+              id="revistas"
+              autocomplete="off"
+              checked
+            />
+            REVISTAS
+          </label>
+          <label class="btn btn-secondary">
+            <input type="radio" name="view" id="diarios" autocomplete="off" />
+            DIARIOS
+          </label>
+          <label class="btn btn-secondary">
+            <input type="radio" name="view" id="global" autocomplete="off" />
+            GLOBAL
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+
+  <div class="container-flex mt-1 mb-1 ">
+    <div class="row mt-2">
+
+        <div class="col-4 col-lg-3 mt-1 pt-1 bg-dark text-white sidebar">
+            <div class="col-12 mt-2">
+                <form id="newDateForm">
+                    <div class="form-group row justify-content-center">
+                    <input
+                        type="date"
+                        class="form-control col-8 pill mr-1"
+                        id="newDate"
+                    />
+                    <button type="submit" class="btn btn-primary rounded-circle">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-12 row p-0 m-0" id="sidebar">
+              
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-8 col-xl-3 p-1" id="tableSection">
+            <table class="table table-dark">
+                <thead>
+                  <tr>
+                    <th scope="row" colspan="4"><center>DOMINGO</center></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row" colspan="4"><center>03/03/2019</center></th>
+                  </tr>
+                  <tr>
+                    <th scope="col">DIARIOS</th>
+                    <td scope="col">VENTA</td>
+                    <td scope="col">PRECIO</td>
+                    <td scope="col">TOTAL</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">CLARIN</th>
+                    <th>1</th>
+                    <th>$1</th>
+                    <th>$1</th>
+                  </tr>
+                  <tr>
+                    <th scope="row">CAPITAL</th>
+                    <th>2</th>
+                    <th>$2</th>
+                    <th>$4</th>
+                  </tr>
+                  <tr>
+                    <th scope="row">NACION</th>
+                    <th>3</th>
+                    <th>$3</th>
+                    <th>$9</th>
+                  </tr>
+                  <tr>
+                    <th scope="row">POPULAR</th>
+                    <th>4</th>
+                    <th>$4</th>
+                    <th>$16</th>
+                  </tr>
+                  <tr class="resultado">
+                    <th scope="row">TOTAL</th>
+                    <th>10</th>
+                    <th>-</th>
+                    <th>$30</th>
+                  </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+  </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="../js/config.js"></script>
+    <script src="../js/diarios/view.js"></script>
+    <script src="../js/revistas/view.js"></script>
+    <script src="../js/diarios/controller.js"></script>
+    <script src="../js/diarios/index.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+      integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+      integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
