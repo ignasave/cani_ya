@@ -1,5 +1,5 @@
-daysD = [];
-newsPapers = [
+var daysD = [];
+var newsPapers = [
     'CAPITAL',
     'CLARIN',
     'OLE',
@@ -51,6 +51,16 @@ function getDayBeforeDefaultParams(id, newsPaper){
     }
 }
 
+function editDia(dia, data){
+    daysD[indiceFecha(dia)].sells.forEach(sell =>{
+        data.forEach(datum => {
+            if(sell.newsPaper == datum.newsPaper){
+                sell.quantity = datum.value;
+            }
+        })
+    });
+    mostrarDiaExtendido(daysD[indiceFecha(dia)]);
+}
 class Day{
     constructor(date, sells = []){
         this.date = date,
