@@ -39,3 +39,7 @@ input{
 .centered{
     text-align: center; 
 }
+
+.day-item:hover{
+    background-color: #6F6F6F;
+}
