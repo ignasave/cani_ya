@@ -38,18 +38,6 @@ function indiceFecha(id) {
 	return idFecha;
 }
 
-function getDayBeforeDefaultParams(id, newsPaper){
-    dayBefore =  daysD[indiceFecha(id) + 1];
-    if(dayBefore){
-        dayBeforeNewsPaper = dayBefore.sells.filter( sell => sell.newsPaper == newsPaper);
-        const envy = dayBeforeNewsPaper[0].envy;
-        const price = dayBeforeNewsPaper[0].price;
-        return [envy,price];
-    }
-    else {
-        return null;
-    }
-}
 
 function editDia(dia, data){
     daysD[indiceFecha(dia)].sells.forEach(sell =>{
@@ -82,13 +70,7 @@ class Day{
 
     setNewspapers(id){
         newsPapers.forEach(newsPaper => {
-            const params = getDayBeforeDefaultParams(id, newsPaper);
-            let newItem;
-            if(params){
-                newItem = new Sell(newsPaper, 0, params[0], params[1], 0, 0);
-            }else{
-                newItem = new Sell(newsPaper);
-            }
+            const newItem = new Sell(newsPaper);
             this.sells.push(newItem);
         })
     }
