@@ -19,7 +19,7 @@ function selectDay(dia) {
 }
 
 function mostrarDiaExtendido(dia) {
-	let formatedDate = formatDate(dia.date, true);
+    let formatedDate = formatDate(dia.date, true);
     let string = `
     <table class="table table-dark">
         <thead>
@@ -60,7 +60,7 @@ function mostrarDiaExtendido(dia) {
                     <th>$${sell.envy}</th>
                     <th>$${sell.price}</th>
                     <th>$${sell.total}</th>
-                    <th>$${sell.earnings}</th>
+                    <th>$${sell.totalEarnings}</th>
                 </tr>
         `;} else {
             string += `
@@ -72,7 +72,7 @@ function mostrarDiaExtendido(dia) {
                 <th>$${sell.envy}</th>
                 <th>$${sell.price}</th>
                 <th>$${sell.total}</th>
-                <th>$${sell.earnings}</th>
+                <th>$${sell.totalEarnings}</th>
             </tr>
             `
 

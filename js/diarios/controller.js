@@ -1,4 +1,5 @@
 var daysD = [];
+
 var newsPapers = [
     'CAPITAL',
     'CLARIN',
@@ -15,6 +16,41 @@ var newsPapers = [
     'EL PLATA',
     'DE TODO',
 ];
+
+var config = {
+    newsPapers : [
+        {
+            newsPaper : 'CAPITAL',
+            envy : 0,
+            price : 30,
+            earnings : 0.5
+        },
+        {
+            newsPaper : 'CLARIN',
+            envy : 7.50,
+            price : 77,
+            earnings : 0.3
+        },
+        {
+            newsPaper : 'OLE',
+            envy : 5,
+            price : 35,
+            earnings : 0.3
+        },
+        {
+            newsPaper : 'PERFIL',
+            envy : 6,
+            price : 67,
+            earnings : 0.6
+        },
+        {
+            newsPaper : 'CRONISTA',
+            envy : 4,
+            price : 5,
+            earnings : 0.5
+        },
+    ]
+}
 
 document.getElementById('newDateForm').addEventListener('submit',
     (event)=>{
@@ -38,7 +74,6 @@ function indiceFecha(id) {
 	return idFecha;
 }
 
-
 function editDia(dia, data){
     daysD[indiceFecha(dia)].sells.forEach(sell =>{
         data.forEach(datum => {
@@ -47,8 +82,12 @@ function editDia(dia, data){
             }
         })
     });
+    let nuevoDia = daysD[indiceFecha(dia)];
+    nuevoDia.calcularVentas();
+    daysD[indiceFecha(dia)] = nuevoDia;
     mostrarDiaExtendido(daysD[indiceFecha(dia)]);
 }
+
 class Day{
     constructor(date, sells = []){
         this.date = date,
@@ -63,14 +102,22 @@ class Day{
         this.sells.forEach( sell => {
             venta += sell.quantity;
             total += sell.total;
-            ganancia += sell.earnings;
+            ganancia += sell.totalEarnings;
         });
         return [venta,total,ganancia];
     }
 
+    calcularVentas(){
+        this.sells.forEach( sell => {
+            sell.total = Number(sell.quantity * sell.price);
+            sell.totalEarnings = Number(sell.earnings * sell.total);
+            sell.totalEarnings = Number(sell.totalEarnings.toFixed(2));
+        })
+    }
+
     setNewspapers(id){
-        newsPapers.forEach(newsPaper => {
-            const newItem = new Sell(newsPaper);
+        config.newsPapers.forEach(newsPaper => {
+            const newItem = new Sell(newsPaper.newsPaper, 0, newsPaper.envy, newsPaper.price, 0, newsPaper.earnings, 0);
             this.sells.push(newItem);
         })
     }
@@ -79,13 +126,14 @@ class Day{
 
 
 class Sell{
-    constructor(newsPaper, quantity = 0,envy = 0, price = 0, total = 0, earnings = 0 ){
+    constructor(newsPaper, quantity = 0,envy = 0, price = 0, total = 0, earnings = 0, totalEarnings = 0){
         this.newsPaper = newsPaper,
         this.quantity = quantity,
         this.price = price,
         this.total = total,
         this.envy = envy,
-        this.earnings = earnings
+        this.earnings = earnings,
+        this.totalEarnings = totalEarnings
     }
     devolverVenta(){
         return {
@@ -94,6 +142,7 @@ class Sell{
             price: this.price,
             total: this.total,
             earnings: this.earnings,
+            totalEarnings: this.totalEarnings,
             envy: this.envy,
         }
     }
