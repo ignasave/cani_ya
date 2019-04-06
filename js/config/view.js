@@ -14,7 +14,7 @@ function mostrarDiarios(datos, dia){
             </button>
           </td>
           <td>
-            <button class="btn-danger btn rounded-circle" onclick="">
+            <button class="btn-danger btn rounded-circle" onclick="deleteNewsPaper('${dia}','${newsPaper.newsPaper}')">
                 <i class="fas fa-times"></i>
             </button>
         </tr>
@@ -42,12 +42,12 @@ function editView(dia, newsPaperName){
             <input type="number" class="form-control pill" value="${DiarioChoosen.earnings}">       
         </td>
         <td >
-        <button class="btn-success btn rounded-circle" onclick="confirmEditView('${dia}','${newsPaper.newsPaper}')">
+        <button class="btn-success btn rounded-circle" onclick="confirmEditView('${dia}','${DiarioChoosen.newsPaper}')">
             <i class="fas fa-check"></i>
         </button>
         </td>
         <td>
-        <button class="btn-danger btn rounded-circle" onclick="">
+        <button class="btn-danger btn rounded-circle" onclick="clearInputs('${DiarioChoosen.newsPaper}')">
             <i class="fas fa-times"></i>
         </button>
     `;
@@ -55,5 +55,27 @@ function editView(dia, newsPaperName){
 }
 
 function confirmEditView(dia, newsPaperName){
-    
+    const element = document.getElementById(newsPaperName);
+    const name = element.firstElementChild.firstElementChild.value;
+    const envy = element.childNodes[3].firstElementChild.value;
+    const price = element.childNodes[5].firstElementChild.value;
+    const earnings = element.childNodes[7].firstElementChild.value;
+
+    const data = {
+        id: newsPaperName,
+        newsPaper : name,
+        envy : envy,
+        price : price,
+        earnings : earnings
+    }
+
+    confirmEdit(dia, data);
 }
+
+function clearInputs(newsPaperName){
+    const element = document.getElementById(newsPaperName);
+    element.childNodes[3].firstElementChild.value = '';
+    element.childNodes[5].firstElementChild.value = '';
+    element.childNodes[7].firstElementChild.value = '';
+}
+

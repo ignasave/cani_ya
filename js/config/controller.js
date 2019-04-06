@@ -240,7 +240,23 @@ window.onload = function() {
 };
 
 function changedata(day){
-    mostrarDiarios(config.days[day], day)
+    mostrarDiarios(config.days[day], day);
 }
 
+function confirmEdit(day, data){
+    config.days[day].forEach( newsPaper => {
+        if(newsPaper.newsPaper == data.id){
+            newsPaper.newsPaper = data.newsPaper;
+            newsPaper.envy = data.envy;
+            newsPaper.price = data.price;
+            newsPaper.earnings = data.earnings;
+        }
+    });
+    mostrarDiarios(config.days[day], day);
+}
 
+function deleteNewsPaper(day, newsPaperName){
+    const indice = config.days[day].findIndex(newsPaper => newsPaper.newsPaper == newsPaperName);
+    config.days[day].splice(indice,1);
+    mostrarDiarios(config.days[day], day);
+}
