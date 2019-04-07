@@ -5,13 +5,6 @@ class Day {
 	constructor(date) {
 		this.date = date;
 		this.sells = [];
-		this.item = {
-			name: '',
-			quantity: 0,
-			price: 0,
-			total: 0,
-			earnings: 0
-		};
 		this.total = {
 			show: false,
 			quantity: 0,
@@ -97,7 +90,7 @@ function indiceFecha(id) {
 	return idFecha;
 }
 function confirmEdit(dia, id, nombre, cantidad, precio) {
-    const sell = days[indiceFecha(dia)].sells[id];
+	const sell = days[indiceFecha(dia)].sells[id];
 	sell.name = nombre;
 	sell.quantity = cantidad;
 	sell.price = precio;

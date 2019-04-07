@@ -1,70 +1,52 @@
 var daysD = [];
 
-var newsPapers = [
-    'CAPITAL',
-    'CLARIN',
-    'OLE',
-    'PERFIL',
-    'CRONISTA',
-    'NACION',
-    'ATLANTICO',
-    'CRONICA',
-    'AMBITO',
-    'PAGINA 12',
-    'EL DIA',
-    'POPULAR',
-    'EL PLATA',
-    'DE TODO',
-];
-
 var config = {
-    newsPapers : [
-        {
-            newsPaper : 'CAPITAL',
-            envy : 0,
-            price : 30,
-            earnings : 0.5
-        },
-        {
-            newsPaper : 'CLARIN',
-            envy : 7.50,
-            price : 77,
-            earnings : 0.3
-        },
-        {
-            newsPaper : 'OLE',
-            envy : 5,
-            price : 35,
-            earnings : 0.3
-        },
-        {
-            newsPaper : 'PERFIL',
-            envy : 6,
-            price : 67,
-            earnings : 0.6
-        },
-        {
-            newsPaper : 'CRONISTA',
-            envy : 4,
-            price : 5,
-            earnings : 0.5
-        },
-    ]
-}
+	newsPapers: [
+		{
+			newsPaper: 'CAPITAL',
+			envy: 0,
+			price: 30,
+			earnings: 0.5
+		},
+		{
+			newsPaper: 'CLARIN',
+			envy: 7.5,
+			price: 77,
+			earnings: 0.3
+		},
+		{
+			newsPaper: 'OLE',
+			envy: 5,
+			price: 35,
+			earnings: 0.3
+		},
+		{
+			newsPaper: 'PERFIL',
+			envy: 6,
+			price: 67,
+			earnings: 0.6
+		},
+		{
+			newsPaper: 'CRONISTA',
+			envy: 4,
+			price: 5,
+			earnings: 0.5
+		}
+	]
+};
 
-document.getElementById('newDateForm').addEventListener('submit',
-    (event)=>{
-        event.preventDefault();
-        const newDate = document.getElementById('newDate').value;
-        let thereIsNoEqualDays = daysD.filter(day => day.date == newDate);
-        if (thereIsNoEqualDays.length == 0) {
-            const newDay = new Day(newDate);
-            newDay.setNewspapers(newDay.date);
-            daysD.push(newDay);
-            mostrarDiasEnLista(daysD);
-        } else {
-            console.error('the day is alredy instanciated');
-        }
+document.getElementById('newDateForm').addEventListener('submit', event => {
+	event.preventDefault();
+	const newDate = document.getElementById('newDate').value;
+	let thereIsNoEqualDays = daysD.filter(day => day.date == newDate);
+	if (thereIsNoEqualDays.length == 0) {
+		const newDay = new Day(newDate);
+		newDay.setNewspapers(newDay.date);
+		daysD.push(newDay);
+		mostrarDiasEnLista(daysD);
+	} else {
+		console.error('the day is alredy instanciated');
+	}
 });
 
 function indiceFecha(id) {
@@ -74,76 +56,88 @@ function indiceFecha(id) {
 	return idFecha;
 }
 
-function editDia(dia, data){
-    daysD[indiceFecha(dia)].sells.forEach(sell =>{
-        data.forEach(datum => {
-            if(sell.newsPaper == datum.newsPaper){
-                sell.quantity = datum.value;
-            }
-        })
-    });
-    let nuevoDia = daysD[indiceFecha(dia)];
-    nuevoDia.calcularVentas();
-    daysD[indiceFecha(dia)] = nuevoDia;
-    mostrarDiaExtendido(daysD[indiceFecha(dia)]);
+function editDia(dia, data) {
+	daysD[indiceFecha(dia)].sells.forEach(sell => {
+		data.forEach(datum => {
+			if (sell.newsPaper == datum.newsPaper) {
+				sell.quantity = datum.value;
+			}
+		});
+	});
+	let nuevoDia = daysD[indiceFecha(dia)];
+	nuevoDia.calcularVentas();
+	daysD[indiceFecha(dia)] = nuevoDia;
+	mostrarDiaExtendido(daysD[indiceFecha(dia)]);
 }
 
-class Day{
-    constructor(date, sells = []){
-        this.date = date,
-        this.sells = sells,
-        this.total
-    }
+class Day {
+	constructor(date, sells = []) {
+		(this.date = date), (this.sells = sells), this.total;
+	}
 
-    calcularTotal(){
-        let venta = 0,
-            ganancia = 0,
-            total = 0;
-        this.sells.forEach( sell => {
-            venta += sell.quantity;
-            total += sell.total;
-            ganancia += sell.totalEarnings;
-        });
-        return [venta,total,ganancia];
-    }
+	calcularTotal() {
+		let venta = 0,
+			ganancia = 0,
+			total = 0;
+		this.sells.forEach(sell => {
+			venta += sell.quantity;
+			total += sell.total;
+			ganancia += sell.totalEarnings;
+		});
+		return [venta, total, ganancia];
+	}
 
-    calcularVentas(){
-        this.sells.forEach( sell => {
-            sell.total = Number(sell.quantity * sell.price);
-            sell.totalEarnings = Number(sell.earnings * sell.total);
-            sell.totalEarnings = Number(sell.totalEarnings.toFixed(2));
-        })
-    }
+	calcularVentas() {
+		this.sells.forEach(sell => {
+			sell.total = Number(sell.quantity * sell.price);
+			sell.totalEarnings = Number(sell.earnings * sell.total);
+			sell.totalEarnings = Number(sell.totalEarnings.toFixed(2));
+		});
+	}
 
-    setNewspapers(id){
-        config.newsPapers.forEach(newsPaper => {
-            const newItem = new Sell(newsPaper.newsPaper, 0, newsPaper.envy, newsPaper.price, 0, newsPaper.earnings, 0);
-            this.sells.push(newItem);
-        })
-    }
+	setNewspapers(id) {
+		config.newsPapers.forEach(newsPaper => {
+			const newItem = new Sell(
+				newsPaper.newsPaper,
+				0,
+				newsPaper.envy,
+				newsPaper.price,
+				0,
+				newsPaper.earnings,
+				0
+			);
+			this.sells.push(newItem);
+		});
+	}
 }
 
-
-
-class Sell{
-    constructor(newsPaper, quantity = 0,envy = 0, price = 0, total = 0, earnings = 0, totalEarnings = 0){
-        this.newsPaper = newsPaper,
-        this.quantity = quantity,
-        this.price = price,
-        this.total = total,
-        this.envy = envy,
-        this.earnings = earnings,
-        this.totalEarnings = totalEarnings
-    }
-    devolverVenta(){
-        return {
-            newsPaper: this.newsPaper,
-            quantity: this.quantity,
-            price: this.price,
-            total: this.total,
-            earnings: this.earnings,
-            totalEarnings: this.totalEarnings,
-            envy: this.envy,
-        }
-    }
+class Sell {
+	constructor(
+		newsPaper,
+		quantity = 0,
+		envy = 0,
+		price = 0,
+		total = 0,
+		earnings = 0,
+		totalEarnings = 0
+	) {
+        (this.newsPaper = newsPaper),
+        (this.quantity = quantity),
+        (this.price = price),
+        (this.total = total),
+        (this.envy = envy),
+        (this.earnings = earnings),
+        (this.totalEarnings = totalEarnings);
+	}
+	devolverVenta() {
+		return {
+			newsPaper: this.newsPaper,
+			quantity: this.quantity,
+			price: this.price,
+			total: this.total,
+			earnings: this.earnings,
+			totalEarnings: this.totalEarnings,
+			envy: this.envy
+		};
+	}
 }

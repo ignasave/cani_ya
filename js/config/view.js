@@ -1,37 +1,41 @@
 var diaSelected = 0;
 
-function mostrarDiarios(datos, dia){
-    diaSelected = dia;
-    const table = document.getElementById('containerDiariosConfig');
-    table.innerHTML = '';
-    datos.forEach( newsPaper => {
-        table.innerHTML += `
+function mostrarDiarios(datos, dia) {
+	diaSelected = dia;
+	const table = document.getElementById('containerDiariosConfig');
+	table.innerHTML = '';
+	datos.forEach(newsPaper => {
+		table.innerHTML += `
         <tr id="${newsPaper.newsPaper}">
             <th scope="row">${newsPaper.newsPaper}</th>
             <td>${newsPaper.envy}</td>
             <td>${newsPaper.price}</td>
             <td>${newsPaper.earnings}</td>
             <td >
-            <button class="btn-info btn rounded-circle" onclick="editView('${dia}','${newsPaper.newsPaper}')">
+            <button class="btn-info btn rounded-circle" onclick="editView('${dia}','${
+			newsPaper.newsPaper
+		}')">
                 <i class="fas fa-pen"></i>
             </button>
           </td>
           <td>
-            <button class="btn-danger btn rounded-circle" onclick="deleteNewsPaper('${dia}','${newsPaper.newsPaper}')">
+            <button class="btn-danger btn rounded-circle" onclick="deleteNewsPaper('${dia}','${
+			newsPaper.newsPaper
+		}')">
                 <i class="fas fa-times"></i>
             </button>
         </tr>
         `;
-    })
+	});
 }
 
-function editView(dia, newsPaperName){
-    const indexOfNewsPaperInDay = config.days[dia].findIndex(day => {
-        return day.newsPaper === newsPaperName;
-    });
-    const DiarioChoosen = config.days[dia][indexOfNewsPaperInDay];
-    const element = document.getElementById(newsPaperName);
-    element.innerHTML = `
+function editView(dia, newsPaperName) {
+	const indexOfNewsPaperInDay = config.days[dia].findIndex(day => {
+		return day.newsPaper === newsPaperName;
+	});
+	const DiarioChoosen = config.days[dia][indexOfNewsPaperInDay];
+	const element = document.getElementById(newsPaperName);
+	element.innerHTML = `
         <th scope="row">
             <input type="text" class="form-control pill" value="${DiarioChoosen.newsPaper}">
         </th>
@@ -45,52 +49,55 @@ function editView(dia, newsPaperName){
             <input type="number" class="form-control pill" value="${DiarioChoosen.earnings}">       
         </td>
         <td >
-        <button class="btn-success btn rounded-circle" onclick="confirmEditView('${dia}','${DiarioChoosen.newsPaper}')">
+        <button class="btn-success btn rounded-circle" onclick="confirmEditView('${dia}','${
+		DiarioChoosen.newsPaper
+	}')">
             <i class="fas fa-check"></i>
         </button>
         </td>
         <td>
-        <button class="btn-danger btn rounded-circle" onclick="clearInputs('${DiarioChoosen.newsPaper}')">
+        <button class="btn-danger btn rounded-circle" onclick="clearInputs('${
+			DiarioChoosen.newsPaper
+		}')">
             <i class="fas fa-times"></i>
         </button>
     `;
-
 }
 
-function confirmEditView(dia, newsPaperName){
-    const element = document.getElementById(newsPaperName);
-    const name = element.firstElementChild.firstElementChild.value.toUpperCase();
-    const envy = element.childNodes[3].firstElementChild.value;
-    const price = element.childNodes[5].firstElementChild.value;
-    const earnings = element.childNodes[7].firstElementChild.value;
+function confirmEditView(dia, newsPaperName) {
+	const element = document.getElementById(newsPaperName);
+	const name = element.firstElementChild.firstElementChild.value.toUpperCase();
+	const envy = element.childNodes[3].firstElementChild.value;
+	const price = element.childNodes[5].firstElementChild.value;
+	const earnings = element.childNodes[7].firstElementChild.value;
 
-    const data = {
-        id: newsPaperName,
-        newsPaper : name,
-        envy : Number(envy),
-        price : Number(price),
-        earnings : Number(earnings)
-    }
+	const data = {
+		id: newsPaperName,
+		newsPaper: name,
+		envy: Number(envy),
+		price: Number(price),
+		earnings: Number(earnings)
+	};
 
-    confirmEdit(dia, data);
+	confirmEdit(dia, data);
 }
 
-function clearInputs(newsPaperName){
-    const element = document.getElementById(newsPaperName);
-    element.childNodes[3].firstElementChild.value = '';
-    element.childNodes[5].firstElementChild.value = '';
-    element.childNodes[7].firstElementChild.value = '';
+function clearInputs(newsPaperName) {
+	const element = document.getElementById(newsPaperName);
+	element.childNodes[3].firstElementChild.value = '';
+	element.childNodes[5].firstElementChild.value = '';
+	element.childNodes[7].firstElementChild.value = '';
 }
 
-function newNewsPaper(){
-    const beforeShiet = document.getElementById('newNewsPaper');
-    if(beforeShiet){
-        beforeShiet.remove();
-    }
-    const container = document.getElementById('containerDiariosConfig');
-    let row = document.createElement('tr');
-    row.setAttribute('id','newNewsPaper');
-    row.innerHTML = `
+function newNewsPaper() {
+	const beforeShiet = document.getElementById('newNewsPaper');
+	if (beforeShiet) {
+		beforeShiet.remove();
+	}
+	const container = document.getElementById('containerDiariosConfig');
+	let row = document.createElement('tr');
+	row.setAttribute('id', 'newNewsPaper');
+	row.innerHTML = `
     <th scope="row">
         <input type="text" class="form-control pill">
     </th>
@@ -113,30 +120,30 @@ function newNewsPaper(){
         <i class="fas fa-times"></i>
     </button>
     `;
-    container.prepend(row);
+	container.prepend(row);
 }
 
-function confirmNewNewsPaper(){
-    const element = document.getElementById('newNewsPaper');
-    const name = element.firstElementChild.firstElementChild.value.toUpperCase();
-    const envy = element.childNodes[3].firstElementChild.value;
-    const price = element.childNodes[5].firstElementChild.value;
-    const earnings = element.childNodes[7].firstElementChild.value;
+function confirmNewNewsPaper() {
+	const element = document.getElementById('newNewsPaper');
+	const name = element.firstElementChild.firstElementChild.value.toUpperCase();
+	const envy = element.childNodes[3].firstElementChild.value;
+	const price = element.childNodes[5].firstElementChild.value;
+	const earnings = element.childNodes[7].firstElementChild.value;
 
-    const data = {
-        newsPaper : name,
-        envy : Number(envy),
-        price : Number(price),
-        earnings : Number(earnings)
-    }
-    newNewsPaperController(data);
-    mostrarDiarios(config.days[diaSelected], diaSelected)
+	const data = {
+		newsPaper: name,
+		envy: Number(envy),
+		price: Number(price),
+		earnings: Number(earnings)
+	};
+	newNewsPaperController(data);
+	mostrarDiarios(config.days[diaSelected], diaSelected);
 }
 
-function clearInputsNew(){
-    const element = document.getElementById('newNewsPaper');
-    element.childNodes[1].firstElementChild.value = '';
-    element.childNodes[3].firstElementChild.value = '';
-    element.childNodes[5].firstElementChild.value = '';
-    element.childNodes[7].firstElementChild.value = '';
+function clearInputsNew() {
+	const element = document.getElementById('newNewsPaper');
+	element.childNodes[1].firstElementChild.value = '';
+	element.childNodes[3].firstElementChild.value = '';
+	element.childNodes[5].firstElementChild.value = '';
+	element.childNodes[7].firstElementChild.value = '';
 }
