@@ -1,44 +1,6 @@
 const CFG = new Configuracion();
 const listArea = document.getElementById('tableSection');
 
-function changeNightMode() {
-	CFG.modonoche = !CFG.modonoche;
-	const container1 = document.getElementById('container1');
-	const container2 = document.getElementById('container2');
-	const botonCargarMas = document.getElementById('botonCargarMas');
-	const tables = document.getElementsByClassName('table');
-	if (!CFG.modonoche) {
-		container1.classList.remove('bg-dark');
-		container1.classList.remove('text-white');
-
-		container2.classList.remove('bg-dark');
-		container2.classList.remove('text-white');
-
-		botonCargarMas.classList.remove('btn-dark');
-
-		botonNoche.classList.remove('btn-light');
-		botonNoche.classList.add('btn-dark');
-
-		for (let table of tables) {
-			table.classList.remove('table-dark');
-		}
-	} else {
-		container1.classList.add('bg-dark');
-		container1.classList.add('text-white');
-
-		container2.classList.add('bg-dark');
-		container2.classList.add('text-white');
-
-		botonCargarMas.classList.add('btn-dark');
-
-		botonNoche.classList.add('btn-light');
-		botonNoche.classList.remove('btn-dark');
-
-		for (let table of tables) {
-			table.classList.add('table-dark');
-		}
-	}
-}
 //FORMATEAR LA FECHA DEL TITULO
 function formatDate(paramDate,separated = false) {
 	let date = new Date(paramDate);
