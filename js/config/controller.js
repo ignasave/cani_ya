@@ -228,13 +228,6 @@ var config = {
     ]
 }
 
-class newsPaper{
-    constructor(){
-
-    }
-
-}
-
 window.onload = function() {
     mostrarDiarios(config.days[0], 0);
 };
@@ -259,4 +252,10 @@ function deleteNewsPaper(day, newsPaperName){
     const indice = config.days[day].findIndex(newsPaper => newsPaper.newsPaper == newsPaperName);
     config.days[day].splice(indice,1);
     mostrarDiarios(config.days[day], day);
+}
+
+function newNewsPaperController(data){
+    config.days.forEach( day => {
+        day.push(data);
+    });
 }

@@ -79,3 +79,53 @@ function clearInputs(newsPaperName){
     element.childNodes[7].firstElementChild.value = '';
 }
 
+function newNewsPaper(){
+    const beforeShiet = document.getElementById('newNewsPaper');
+    if(beforeShiet){
+        beforeShiet.remove();
+    }
+    const container = document.getElementById('containerDiariosConfig');
+    let row = document.createElement('tr');
+    row.setAttribute('id','newNewsPaper');
+    row.innerHTML = `
+    <th scope="row">
+        <input type="text" class="form-control pill">
+    </th>
+    <td>
+        <input type="number" class="form-control pill">       
+    </td>
+    <td>
+        <input type="number" class="form-control pill">
+    </td>
+    <td>
+        <input type="number" class="form-control pill">       
+    </td>
+    <td >
+    <button class="btn-success btn rounded-circle" onclick="confirmNewNewsPaper()">
+        <i class="fas fa-check"></i>
+    </button>
+    </td>
+    <td>
+    <button class="btn-danger btn rounded-circle" onclick="clearInputsNew()">
+        <i class="fas fa-times"></i>
+    </button>
+    `;
+    container.prepend(row);
+}
+
+function confirmNewNewsPaper(){
+    const element = document.getElementById('newNewsPaper');
+    const name = element.firstElementChild.firstElementChild.value;
+    const envy = element.childNodes[3].firstElementChild.value;
+    const price = element.childNodes[5].firstElementChild.value;
+    const earnings = element.childNodes[7].firstElementChild.value;
+
+    const data = {
+        newsPaper : name,
+        envy : envy,
+        price : price,
+        earnings : earnings
+    }
+    newNewsPaperController(data);
+}
+
