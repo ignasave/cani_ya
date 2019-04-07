@@ -1,4 +1,7 @@
+var diaSelected = 0;
+
 function mostrarDiarios(datos, dia){
+    diaSelected = dia;
     const table = document.getElementById('containerDiariosConfig');
     table.innerHTML = '';
     datos.forEach( newsPaper => {
@@ -56,7 +59,7 @@ function editView(dia, newsPaperName){
 
 function confirmEditView(dia, newsPaperName){
     const element = document.getElementById(newsPaperName);
-    const name = element.firstElementChild.firstElementChild.value;
+    const name = element.firstElementChild.firstElementChild.value.toUpperCase();
     const envy = element.childNodes[3].firstElementChild.value;
     const price = element.childNodes[5].firstElementChild.value;
     const earnings = element.childNodes[7].firstElementChild.value;
@@ -64,9 +67,9 @@ function confirmEditView(dia, newsPaperName){
     const data = {
         id: newsPaperName,
         newsPaper : name,
-        envy : envy,
-        price : price,
-        earnings : earnings
+        envy : Number(envy),
+        price : Number(price),
+        earnings : Number(earnings)
     }
 
     confirmEdit(dia, data);
@@ -115,17 +118,25 @@ function newNewsPaper(){
 
 function confirmNewNewsPaper(){
     const element = document.getElementById('newNewsPaper');
-    const name = element.firstElementChild.firstElementChild.value;
+    const name = element.firstElementChild.firstElementChild.value.toUpperCase();
     const envy = element.childNodes[3].firstElementChild.value;
     const price = element.childNodes[5].firstElementChild.value;
     const earnings = element.childNodes[7].firstElementChild.value;
 
     const data = {
         newsPaper : name,
-        envy : envy,
-        price : price,
-        earnings : earnings
+        envy : Number(envy),
+        price : Number(price),
+        earnings : Number(earnings)
     }
     newNewsPaperController(data);
+    mostrarDiarios(config.days[diaSelected], diaSelected)
 }
 
+function clearInputsNew(){
+    const element = document.getElementById('newNewsPaper');
+    element.childNodes[1].firstElementChild.value = '';
+    element.childNodes[3].firstElementChild.value = '';
+    element.childNodes[5].firstElementChild.value = '';
+    element.childNodes[7].firstElementChild.value = '';
+}
