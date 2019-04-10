@@ -6,14 +6,14 @@ function mostrarDiarios(datos, dia) {
 	table.innerHTML = '';
 	datos.forEach(newsPaper => {
 		table.innerHTML += `
-        <tr id="${newsPaper.newsPaper}">
+        <tr id="${newsPaper.id}">
             <th scope="row">${newsPaper.newsPaper}</th>
             <td>${newsPaper.envy}</td>
             <td>${newsPaper.price}</td>
             <td>${newsPaper.earnings}</td>
             <td >
             <button class="btn-info btn rounded-circle" onclick="editView('${dia}','${
-			newsPaper.newsPaper
+			newsPaper.id
 		}')">
                 <i class="fas fa-pen"></i>
             </button>
@@ -29,12 +29,12 @@ function mostrarDiarios(datos, dia) {
 	});
 }
 
-function editView(dia, newsPaperName) {
+function editView(dia, newsPaperID) {
 	const indexOfNewsPaperInDay = pConfig.days[dia].findIndex(day => {
-		return day.newsPaper === newsPaperName;
+		return day.id === newsPaperID;
 	});
 	const DiarioChoosen = pConfig.days[dia][indexOfNewsPaperInDay];
-	const element = document.getElementById(newsPaperName);
+	const element = document.getElementById(newsPaperID);
 	element.innerHTML = `
         <th scope="row">
             <input type="text" class="form-control pill" value="${DiarioChoosen.newsPaper}">
@@ -50,7 +50,7 @@ function editView(dia, newsPaperName) {
         </td>
         <td >
         <button class="btn-success btn rounded-circle" onclick="confirmEditView('${dia}','${
-		DiarioChoosen.newsPaper
+		DiarioChoosen.id
 	}')">
             <i class="fas fa-check"></i>
         </button>
@@ -64,15 +64,15 @@ function editView(dia, newsPaperName) {
     `;
 }
 
-function confirmEditView(dia, newsPaperName) {
-	const element = document.getElementById(newsPaperName);
+function confirmEditView(dia, newsPaperID) {
+	const element = document.getElementById(newsPaperID);
 	const name = element.firstElementChild.firstElementChild.value.toUpperCase();
 	const envy = element.childNodes[3].firstElementChild.value;
 	const price = element.childNodes[5].firstElementChild.value;
 	const earnings = element.childNodes[7].firstElementChild.value;
 
 	const data = {
-		id: newsPaperName,
+		id: newsPaperID,
 		newsPaper: name,
 		envy: Number(envy),
 		price: Number(price),
@@ -136,8 +136,8 @@ function confirmNewNewsPaper() {
 		price: Number(price),
 		earnings: Number(earnings)
 	};
-	newNewsPaperController(data);
-	mostrarDiarios(pConfig.days[diaSelected], diaSelected);
+	newNewsPaperController(data, diaSelected);
+	//mostrarDiarios(pConfig.days[diaSelected], diaSelected);
 }
 
 function clearInputsNew() {
