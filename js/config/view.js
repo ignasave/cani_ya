@@ -30,10 +30,10 @@ function mostrarDiarios(datos, dia) {
 }
 
 function editView(dia, newsPaperName) {
-	const indexOfNewsPaperInDay = config.days[dia].findIndex(day => {
+	const indexOfNewsPaperInDay = pConfig.days[dia].findIndex(day => {
 		return day.newsPaper === newsPaperName;
 	});
-	const DiarioChoosen = config.days[dia][indexOfNewsPaperInDay];
+	const DiarioChoosen = pConfig.days[dia][indexOfNewsPaperInDay];
 	const element = document.getElementById(newsPaperName);
 	element.innerHTML = `
         <th scope="row">
@@ -137,7 +137,7 @@ function confirmNewNewsPaper() {
 		earnings: Number(earnings)
 	};
 	newNewsPaperController(data);
-	mostrarDiarios(config.days[diaSelected], diaSelected);
+	mostrarDiarios(pConfig.days[diaSelected], diaSelected);
 }
 
 function clearInputsNew() {

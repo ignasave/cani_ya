@@ -226,16 +226,31 @@ var config = {
 		])
 	]
 };
+var dayName = ['domingo','lunes','martes','miercoles','jueves','viernes','sabado']
+var pConfig = {
+	days: [
+		(domingo = []),
+		(lunes = []),
+		(martes = []),
+		(miercoles = []),
+		(jueves = []),
+		(viernes = []),
+		(sabado = []),
+	]
+}
 
-window.onload = function() {
-	mostrarDiarios(config.days[0], 0);
-};
+//mostrarDiarios(config.days[0], 0);
+document.addEventListener("DOMContentLoaded", processNewsPapers);
+
+
 
 function changedata(day) {
-	mostrarDiarios(config.days[day], day);
+	mostrarDiarios(pConfig.days[day], day);
 }
 
 function confirmEdit(day, data) {
+	console.log(data)
+
 	config.days[day].forEach(newsPaper => {
 		if (newsPaper.newsPaper == data.id) {
 			newsPaper.newsPaper = data.newsPaper;
