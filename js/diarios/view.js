@@ -39,6 +39,11 @@ function mostrarDiaExtendido(dia) {
 						}')" id="confirmEdit" class="btn-success btn rounded-circle hidden">
                             <i class="fas fa-check"></i>
                         </button>
+                        <button onclick="deleteday('${
+							dia.date
+						}')" id="delete" class="btn-danger btn rounded-circle">
+                            <i class="fas fa-times"></i>
+                        </button>
                     </center>
                 </th>
             </tr>

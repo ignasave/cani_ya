@@ -75,6 +75,12 @@ function editDia(dia, data) {
 	mostrarDiaExtendido(daysD[indiceFecha(dia)]);
 }
 
+function deleteday(day){
+	daysD.splice(daysD[indiceFecha(day)], 1);
+	document.getElementById('tableSection').innerHTML = '';
+	mostrarDiasEnLista(daysD);
+}
+
 class Day {
 	constructor(date, sells = []) {
 		(this.date = date), (this.sells = sells), this.total;
