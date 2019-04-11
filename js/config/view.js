@@ -137,7 +137,6 @@ function confirmNewNewsPaper() {
 		earnings: Number(earnings)
 	};
 	newNewsPaperController(data, diaSelected);
-	//mostrarDiarios(pConfig.days[diaSelected], diaSelected);
 }
 
 function clearInputsNew() {

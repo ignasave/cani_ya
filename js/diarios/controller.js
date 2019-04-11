@@ -35,13 +35,18 @@ var config = {
 	]
 };
 
+var pConfg, nCofig;
+
 document.getElementById('newDateForm').addEventListener('submit', event => {
 	event.preventDefault();
 	const newDate = document.getElementById('newDate').value;
 	let thereIsNoEqualDays = daysD.filter(day => day.date == newDate);
 	if (thereIsNoEqualDays.length == 0) {
 		const newDay = new Day(newDate);
-		newDay.setNewspapers(newDay.date);
+
+		let formatedDate = formatDate(newDate, true);
+
+		newDay.setNewspapers(formatedDate.completeDay);
 		daysD.push(newDay);
 		mostrarDiasEnLista(daysD);
 	} else {
@@ -95,8 +100,9 @@ class Day {
 		});
 	}
 
-	setNewspapers(id) {
-		config.newsPapers.forEach(newsPaper => {
+	async setNewspapers(day) {
+		await processConfig(day.toLowerCase());
+		nCofig.forEach(newsPaper => {
 			const newItem = new Sell(
 				newsPaper.newsPaper,
 				0,
