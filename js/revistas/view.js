@@ -294,7 +294,7 @@ async function editSell(index, dia) {
 }
 
 function confirmEditView(dia, id) {
-	const nombre = document.getElementById('nombreEdit').value;
+	const nombre = document.getElementById('nombreEdit').value.toUpperCase();
 	const cantidad = Number(document.getElementById('cantidadEdit').value);
 	const precio = Number(document.getElementById('precioEdit').value);
 	if (verificarNoComienzaEnNum(nombre)) {

@@ -43,10 +43,12 @@ document.getElementById('newDateForm').addEventListener('submit', event => {
 	let thereIsNoEqualDays = daysD.filter(day => day.date == newDate);
 	if (thereIsNoEqualDays.length == 0) {
 		const newDay = new Day(newDate);
-
 		let formatedDate = formatDate(newDate, true);
-
-		newDay.setNewspapers(formatedDate.completeDay);
+		const body = {
+			date: newDate
+		}
+		console.log(processPostNewDay(formatedDate.completeDay.toLowerCase(), body))
+		//newDay.setNewspapers(formatedDate.completeDay);
 		daysD.push(newDay);
 		mostrarDiasEnLista(daysD);
 	} else {

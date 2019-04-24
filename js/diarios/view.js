@@ -128,6 +128,6 @@ function sendEdit(dia) {
 			newsPaper: input.name,
 			value: Number(input.value)
 		};
-	});
+    });
 	editDia(dia, data);
 }

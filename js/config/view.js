@@ -36,9 +36,7 @@ function editView(dia, newsPaperID) {
 	const DiarioChoosen = pConfig.days[dia][indexOfNewsPaperInDay];
 	const element = document.getElementById(newsPaperID);
 	element.innerHTML = `
-        <th scope="row">
-            <input type="text" class="form-control pill" value="${DiarioChoosen.newsPaper}">
-        </th>
+		<th scope="row">${DiarioChoosen.newsPaper}</th>
         <td>
             <input type="number" class="form-control pill" value="${DiarioChoosen.envy}">       
         </td>
@@ -57,7 +55,7 @@ function editView(dia, newsPaperID) {
         </td>
         <td>
         <button class="btn-danger btn rounded-circle" onclick="clearInputs('${
-			DiarioChoosen.newsPaper
+			DiarioChoosen.id
 		}')">
             <i class="fas fa-times"></i>
         </button>
@@ -66,24 +64,21 @@ function editView(dia, newsPaperID) {
 
 function confirmEditView(dia, newsPaperID) {
 	const element = document.getElementById(newsPaperID);
-	const name = element.firstElementChild.firstElementChild.value.toUpperCase();
 	const envy = element.childNodes[3].firstElementChild.value;
 	const price = element.childNodes[5].firstElementChild.value;
 	const earnings = element.childNodes[7].firstElementChild.value;
 
 	const data = {
 		id: newsPaperID,
-		newsPaper: name,
 		envy: Number(envy),
 		price: Number(price),
 		earnings: Number(earnings)
 	};
-
 	confirmEdit(dia, data);
 }
 
-function clearInputs(newsPaperName) {
-	const element = document.getElementById(newsPaperName);
+function clearInputs(newsPaperID) {
+	const element = document.getElementById(newsPaperID);
 	element.childNodes[3].firstElementChild.value = '';
 	element.childNodes[5].firstElementChild.value = '';
 	element.childNodes[7].firstElementChild.value = '';

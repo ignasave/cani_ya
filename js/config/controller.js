@@ -251,21 +251,13 @@ function changedata(day) {
 async function confirmEdit(day, data) {
 	await processEdit(day, data)
 	await processNewsPapers(day);
-	/*pConfig.days[day].forEach(newsPaper => {
-		if (newsPaper.id == data.id) {
-			newsPaper.newsPaper = data.newsPaper;
-			newsPaper.envy = data.envy;
-			newsPaper.price = data.price;
-			newsPaper.earnings = data.earnings;
-		}
-	});*/
 }
 
-function deleteNewsPaper(day, newsPaperName) {
+/*function deleteNewsPaper(day, newsPaperName) {
 	const indice = config.days[day].findIndex(newsPaper => newsPaper.newsPaper == newsPaperName);
 	config.days[day].splice(indice, 1);
 	mostrarDiarios(config.days[day], day);
-}
+}*/
 
 function newNewsPaperController(data, day) {
 	processCreateNewsPaper(data, day);
