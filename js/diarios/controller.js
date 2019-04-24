@@ -1,6 +1,6 @@
 var daysD = [];
 
-var config = {
+/*var config = {
 	newsPapers: [
 		{
 			newsPaper: 'CAPITAL',
@@ -33,9 +33,11 @@ var config = {
 			earnings: 0.5
 		}
 	]
-};
+};*/
 
 var pConfg, nCofig;
+
+processGetAlldays();
 
 document.getElementById('newDateForm').addEventListener('submit', event => {
 	event.preventDefault();
@@ -47,8 +49,7 @@ document.getElementById('newDateForm').addEventListener('submit', event => {
 		const body = {
 			date: newDate
 		}
-		console.log(processPostNewDay(formatedDate.completeDay.toLowerCase(), body))
-		//newDay.setNewspapers(formatedDate.completeDay);
+		processPostNewDay(formatedDate.completeDay.toLowerCase(), body)
 		daysD.push(newDay);
 		mostrarDiasEnLista(daysD);
 	} else {
@@ -124,7 +125,6 @@ class Day {
 		});
 	}
 }
-
 class Sell {
 	constructor(
 		newsPaper,

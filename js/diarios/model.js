@@ -18,3 +18,24 @@ const processPostNewDay = async(cDay, body) => {
     });
     daysD[iDay].id = response.data.sell._id;
 }
+
+const getAllDays = async () => {
+    try {
+        return await axios.get(`https://cani-ya.herokuapp.com/sells/newspapers`)
+    }
+    catch (error){
+        console.log(error)
+    }
+}
+
+const processGetAlldays = async() => {
+    let response = await getAllDays();
+    
+    response.data.sells.forEach(sell => {
+        let Dia = new Day(sell.date, sell.sells)
+        Dia.id = sell._id;
+        daysD.push(Dia);
+    })
+    mostrarDiasEnLista(daysD);
+}
+
