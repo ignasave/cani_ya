@@ -48,8 +48,8 @@ document.getElementById('newDateForm').addEventListener('submit', event => {
 		let formatedDate = formatDate(newDate, true);
 		const body = {
 			date: newDate
-		}
-		processPostNewDay(formatedDate.completeDay.toLowerCase(), body)
+		};
+		processPostNewDay(formatedDate.completeDay.toLowerCase(), body);
 		daysD.push(newDay);
 		mostrarDiasEnLista(daysD);
 	} else {
@@ -65,20 +65,21 @@ function indiceFecha(id) {
 }
 
 function editDia(dia, data) {
-	daysD[indiceFecha(dia)].sells.forEach(sell => {
+	/*daysD[indiceFecha(dia)].sells.forEach(sell => {
 		data.forEach(datum => {
 			if (sell.newsPaper == datum.newsPaper) {
+				console.log(datum)
 				sell.quantity = datum.value;
 			}
 		});
-	});
+	});*/
 	let nuevoDia = daysD[indiceFecha(dia)];
 	nuevoDia.calcularVentas();
 	daysD[indiceFecha(dia)] = nuevoDia;
 	mostrarDiaExtendido(daysD[indiceFecha(dia)]);
 }
 
-function deleteday(day){
+function deleteday(day) {
 	daysD.splice(daysD[indiceFecha(day)], 1);
 	document.getElementById('tableSection').innerHTML = '';
 	mostrarDiasEnLista(daysD);
@@ -135,13 +136,13 @@ class Sell {
 		earnings = 0,
 		totalEarnings = 0
 	) {
-        (this.newsPaper = newsPaper),
-        (this.quantity = quantity),
-        (this.price = price),
-        (this.total = total),
-        (this.envy = envy),
-        (this.earnings = earnings),
-        (this.totalEarnings = totalEarnings);
+		(this.newsPaper = newsPaper),
+			(this.quantity = quantity),
+			(this.price = price),
+			(this.total = total),
+			(this.envy = envy),
+			(this.earnings = earnings),
+			(this.totalEarnings = totalEarnings);
 	}
 	devolverVenta() {
 		return {
