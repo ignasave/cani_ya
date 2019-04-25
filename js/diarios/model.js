@@ -36,3 +36,11 @@ const processGetAlldays = async () => {
 	});
 	mostrarDiasEnLista(daysD);
 };
+
+const peticionDeActualizcion = async (id, body) => {
+	try {
+		return await axios.put(`https://cani-ya.herokuapp.com/sells/newspapers/${id}`,body);
+	} catch (error) {
+		console.log(error);
+	}
+}

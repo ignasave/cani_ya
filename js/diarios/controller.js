@@ -1,40 +1,5 @@
 var daysD = [];
 
-/*var config = {
-	newsPapers: [
-		{
-			newsPaper: 'CAPITAL',
-			envy: 0,
-			price: 30,
-			earnings: 0.5
-		},
-		{
-			newsPaper: 'CLARIN',
-			envy: 7.5,
-			price: 77,
-			earnings: 0.3
-		},
-		{
-			newsPaper: 'OLE',
-			envy: 5,
-			price: 35,
-			earnings: 0.3
-		},
-		{
-			newsPaper: 'PERFIL',
-			envy: 6,
-			price: 67,
-			earnings: 0.6
-		},
-		{
-			newsPaper: 'CRONISTA',
-			envy: 4,
-			price: 5,
-			earnings: 0.5
-		}
-	]
-};*/
-
 var pConfg, nCofig;
 
 processGetAlldays();
@@ -65,18 +30,32 @@ function indiceFecha(id) {
 }
 
 function editDia(dia, data) {
-	/*daysD[indiceFecha(dia)].sells.forEach(sell => {
+
+	daysD[indiceFecha(dia)].sells.forEach(sell => {
 		data.forEach(datum => {
 			if (sell.newsPaper == datum.newsPaper) {
-				console.log(datum)
 				sell.quantity = datum.value;
 			}
 		});
-	});*/
+	});
 	let nuevoDia = daysD[indiceFecha(dia)];
 	nuevoDia.calcularVentas();
 	daysD[indiceFecha(dia)] = nuevoDia;
+	actualizarEnDB(dia)
 	mostrarDiaExtendido(daysD[indiceFecha(dia)]);
+}
+
+function actualizarEnDB(dia) {
+	daysD[indiceFecha(dia)].sells.forEach(async (sell) => {
+		const body = {
+			quantity : sell.quantity,
+			total : sell.total,
+			totalEarnings : sell.totalEarnings,
+			date : dia
+		}
+		const response = await peticionDeActualizcion(sell._id, body);
+		console.log(response)
+	})
 }
 
 function deleteday(day) {
